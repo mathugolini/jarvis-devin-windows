@@ -79,9 +79,12 @@ try {
     $BinRoot = Join-Path $InstallRoot "bin"
     New-Item -ItemType Directory -Path $BinRoot -Force | Out-Null
     $LauncherPath = Join-Path $BinRoot "jarvis-devin.cmd"
-    if (Test-Path -LiteralPath $LauncherPath) {
-        $Existing = [IO.File]::ReadAllText($LauncherPath)
-        if ($Existing -notmatch "jarvis-devin managed launcher") { throw "Ja existe outro programa no caminho do atalho. Nenhum atalho foi sobrescrito." }
+    $BashLauncherPath = Join-Path $BinRoot "jarvis-devin"
+    foreach ($ManagedPath in @($LauncherPath, $BashLauncherPath)) {
+        if (Test-Path -LiteralPath $ManagedPath) {
+            $Existing = [IO.File]::ReadAllText($ManagedPath)
+            if ($Existing -notmatch "jarvis-devin managed launcher") { throw "Ja existe outro programa no caminho do atalho. Nenhum atalho foi sobrescrito." }
+        }
     }
     foreach ($Folder in @("app", "scripts")) {
         New-Item -ItemType Directory -Path (Join-Path $InstallRoot $Folder) -Force | Out-Null
@@ -89,7 +92,7 @@ try {
     Copy-Item -LiteralPath (Join-Path $SourceRoot "app\jarvis.py") -Destination (Join-Path $InstallRoot "app\jarvis.py") -Force
     Copy-Item -LiteralPath (Join-Path $SourceRoot "app\windows_audio.py") -Destination (Join-Path $InstallRoot "app\windows_audio.py") -Force
     Copy-Item -LiteralPath (Join-Path $SourceRoot "scripts\speak.ps1") -Destination (Join-Path $InstallRoot "scripts\speak.ps1") -Force
-    foreach ($Name in @("README.md", "GUIA-WINDOWS.md", "COMECE-AQUI.html", "VALIDACAO.md", "requirements.txt")) {
+    foreach ($Name in @("README.md", "GUIA-WINDOWS.md", "GUIA-GIT-BASH.md", "COMECE-AQUI.html", "VALIDACAO.md", "requirements.txt")) {
         Copy-Item -LiteralPath (Join-Path $SourceRoot $Name) -Destination (Join-Path $InstallRoot $Name) -Force
     }
 
@@ -144,6 +147,10 @@ set "PATH=%LOCALAPPDATA%\devin\cli\bin;%PATH%"
 exit /b %errorlevel%
 "@
     Write-Utf8 -Path $LauncherPath -Text ($Launcher.Replace("`r`n", "`n").Replace("`n", "`r`n"))
+    $BashLauncher = [IO.File]::ReadAllText((Join-Path $SourceRoot "scripts\jarvis-devin.sh"))
+    Write-Utf8 -Path $BashLauncherPath -Text ($BashLauncher.Replace("`r`n", "`n"))
+    Write-Utf8 -Path (Join-Path $BinRoot "runtime-python.txt") -Text ($Runtime + "`n")
+    Write-Utf8 -Path (Join-Path $BinRoot "runtime-data.txt") -Text ($DataRoot + "`n")
 
     if (-not $SkipPath) {
         $CurrentPath = [Environment]::GetEnvironmentVariable("Path", "User")
@@ -170,7 +177,7 @@ exit /b %errorlevel%
     Write-Host ""
     Write-Host "Arquivos preparados." -ForegroundColor Green
     Write-Host "Abra Abrir.cmd ou o atalho Jarvis Devin na Area de Trabalho."
-    Write-Host "Em um NOVO PowerShell, use: jarvis-devin"
+    Write-Host "Em um NOVO Git Bash ou PowerShell, use: jarvis-devin"
     Write-Host "Para falar: jarvis-devin voz"
     Write-Host "Pesquisa por voz: jarvis-devin voz --pesquisa"
     Write-Host "Guia: $(Join-Path $InstallRoot 'COMECE-AQUI.html')"

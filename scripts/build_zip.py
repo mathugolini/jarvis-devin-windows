@@ -5,10 +5,11 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = (
-    "README.md", "GUIA-WINDOWS.md", "COMECE-AQUI.html", "VALIDACAO.md", "FONTES.md", "LICENSE",
+    "README.md", "GUIA-WINDOWS.md", "GUIA-GIT-BASH.md", "COMECE-AQUI.html", "VALIDACAO.md", "FONTES.md", "LICENSE",
     "requirements.txt", "Instalar.cmd", "Abrir.cmd", "app/jarvis.py", "app/windows_audio.py",
+    "Instalar.sh", "Abrir.sh", "scripts/jarvis-devin.sh",
     "scripts/install.ps1", "scripts/speak.ps1", "scripts/build_zip.py",
-    "tests/test_jarvis.py", "tests/test_windows_audio.py", "exemplos/PEDIDOS.md",
+    "tests/test_jarvis.py", "tests/test_windows_audio.py", "tests/test_git_bash.py", "exemplos/PEDIDOS.md",
 )
 
 

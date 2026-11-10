@@ -34,6 +34,9 @@ jobs:
           python -m pip install --only-binary=:all: -r requirements.txt
       - name: Check native audio imports
         run: python -c "import faster_whisper, sounddevice, huggingface_hub; print('Windows dependencies OK')"
+      - name: Install terminal test dependency
+        run: |
+          python -m pip install --only-binary=:all: pywinpty==3.1.2
       - name: Test CLI, installer and audio adapters
         run: python -W error::ResourceWarning -m unittest discover -s tests -v
       - name: Build and verify ZIP

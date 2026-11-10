@@ -1,4 +1,4 @@
-# Validação da versão Windows 0.2.0
+# Validação da versão Windows 0.3.0
 
 O projeto possui testes automatizados para Windows x64 em Python 3.12 e 3.13. O resultado de cada execução pode ser consultado em [Actions](https://github.com/mathugolini/jarvis-devin-windows/actions/workflows/windows.yml).
 
@@ -9,6 +9,11 @@ O projeto possui testes automatizados para Windows x64 em Python 3.12 e 3.13. O 
 - Cópia e reinstalação dos arquivos em pasta isolada, incluindo caminhos com espaços.
 - Preservação do perfil e configuração.
 - Inicialização do comando jarvis-devin.cmd e simulação de pesquisa.
+- Instalação pelo comando bash Instalar.sh em Git for Windows.
+- Inicialização direta do comando jarvis-devin no Bash e de bash Abrir.sh.
+- Conversão de caminhos POSIX e opções --projeto, inclusive caminhos com espaços.
+- Preservação literal de URLs, acentos, aspas e caracteres de shell em pedidos no Bash.
+- Sessão interativa Bash → winpty → Python, com Enter para iniciar, parar e confirmar uma pesquisa por voz. A captura e a transcrição são simuladas; a leitura de teclado usa o msvcrt real do Windows.
 - Perfil, memórias globais, isolamento por projeto e exclusão por identificador.
 - Encaminhamento de um pedido para um processo que simula o Devin, com texto passado por arquivo.
 - Tratamento literal de caracteres de shell no pedido, falhas e interrupção por tempo limite.
@@ -19,6 +24,8 @@ O projeto possui testes automatizados para Windows x64 em Python 3.12 e 3.13. O 
 - Construção do ZIP com manifesto de integridade.
 
 O teste do instalador usa os parâmetros OnlyFiles, SkipDesktop e SkipPath com pastas temporárias. Assim, verifica os arquivos e o comando sem modificar o PATH, a Área de Trabalho ou instalar uma conta do Devin durante o teste.
+
+O teste de terminal usa pywinpty apenas no ambiente de testes. Essa biblioteca não é uma dependência de instalação do Jarvis. O launcher usa o winpty que vem com o Git for Windows. O teste verifica a ponte de terminal; não reproduz todos os emuladores de terminal ou configurações do notebook.
 
 ## O que ainda exige o notebook real
 

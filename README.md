@@ -2,7 +2,7 @@
 
 Interface pessoal para **Windows 10/11 x64 (Intel/AMD)**: fale um pedido, acrescente seu perfil e memórias, e use o **Devin CLI** para pesquisar ou trabalhar em um projeto.
 
-Versão **0.2.0**. A transcrição roda localmente na CPU com faster-whisper; a leitura usa a voz do Windows. O texto e o contexto são enviados ao Devin.
+Versão **0.3.0**, com uso direto no **Git Bash**. A transcrição roda localmente na CPU com faster-whisper; a leitura usa a voz do Windows. O texto e o contexto são enviados ao Devin.
 
 ## Baixar e instalar
 
@@ -14,6 +14,26 @@ Versão **0.2.0**. A transcrição roda localmente na CPU com faster-whisper; a 
 O instalador usa a pasta do usuário, prepara Python 3.12/3.13, dependências e o Devin CLI se necessário. Baixa aproximadamente 484 MB para o modelo, além dos programas. Usa winget se precisar instalar Python; se ele não estiver disponível, o guia oferece o caminho manual.
 
 Faça o login do Devin quando solicitado. Autorize o microfone no Windows ao usar voz pela primeira vez.
+
+## Usar no Git Bash
+
+Na pasta extraída do novo ZIP:
+
+```bash
+bash Instalar.sh
+export PATH="$(cygpath -u "$LOCALAPPDATA")/JarvisDevin/bin:$PATH"
+jarvis-devin
+```
+
+Abra o Git Bash na pasta do seu projeto para selecionar a pasta e falar:
+
+```bash
+jarvis-devin projeto "$PWD"
+jarvis-devin voz
+jarvis-devin voz --pesquisa
+```
+
+O launcher prepara automaticamente o console para as teclas da gravação e a interface do Devin. Você usa tudo pelo Git Bash. [Guia completo do Git Bash](GUIA-GIT-BASH.md).
 
 ## Usar no PowerShell
 
@@ -51,6 +71,7 @@ Também pode usar **Abrir.cmd** ou o atalho na Área de Trabalho. Se o comando c
 ## Documentação
 
 - [Guia Windows e comandos](GUIA-WINDOWS.md).
+- [Instalação e uso direto no Git Bash](GUIA-GIT-BASH.md).
 - [Validação e limites](VALIDACAO.md).
 - [Fontes oficiais e escolhas técnicas](FONTES.md).
 - [Exemplos de pedidos](exemplos/PEDIDOS.md).
@@ -65,7 +86,7 @@ No notebook de trabalho, as permissões e regras da organização continuam vale
 
 ## Testes
 
-O [workflow Windows](https://github.com/mathugolini/jarvis-devin-windows/actions/workflows/windows.yml) verifica as dependências, o PowerShell, a cópia e reinstalação dos arquivos, os comandos e os adaptadores de áudio em Python 3.12 e 3.13.
+O [workflow Windows](https://github.com/mathugolini/jarvis-devin-windows/actions/workflows/windows.yml) verifica as dependências, o PowerShell, a instalação pelo Git Bash, caminhos com espaços, pedidos literais, comandos e adaptadores de áudio em Python 3.12 e 3.13. Uma sessão de terminal também exercita o Enter da gravação através do winpty, com captura e transcrição simuladas.
 
 ```powershell
 python -m unittest discover -s tests -v

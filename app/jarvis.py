@@ -17,7 +17,7 @@ import threading
 import time
 import uuid
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 from windows_audio import model_ready, prepare_model, transcribe_audio, record_wav, list_microphones, speak_text, powershell_path
 
 PROFILE = """# Meu perfil de trabalho

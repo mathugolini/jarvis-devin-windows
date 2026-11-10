@@ -2,7 +2,12 @@
 
 Consultadas em 10/11/2026.
 
-- [Devin CLI — instalação oficial no Windows](https://docs.devin.ai/cli): confirma o instalador PowerShell e o uso no Windows Terminal/PowerShell.
+- [Devin CLI — instalação oficial no Windows](https://docs.devin.ai/cli): confirma o instalador PowerShell e o uso no Windows Terminal/PowerShell e Git Bash.
+- [Git for Windows — programas de console no Git Bash](https://gitforwindows.org/faq): explica as limitações do mintty e o uso de winpty.
+- [winpty](https://github.com/rprichard/winpty): ponte entre o terminal MSYS/Git Bash e o console Windows.
+- [MSYS2 — caminhos de arquivos](https://www.msys2.org/docs/filesystem-paths/): cygpath e controle da conversão automática de argumentos.
+- [Python — msvcrt](https://docs.python.org/3/library/msvcrt.html): leitura do teclado do console Windows usada para parar a gravação.
+- [pywinpty](https://github.com/andfoy/pywinpty): terminal Windows utilizado apenas na validação automatizada.
 - [Devin CLI — comandos](https://docs.devin.ai/cli/reference/commands): --prompt-file, --print e sessão interativa.
 - [faster-whisper](https://github.com/SYSTRAN/faster-whisper): transcrição local com CTranslate2, execução em CPU/int8 e PyAV para decodificação de áudio.
 - [sounddevice — instalação](https://python-sounddevice.readthedocs.io/en/latest/installation.html): a distribuição pip inclui PortAudio para Windows.

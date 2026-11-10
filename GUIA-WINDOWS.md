@@ -1,6 +1,8 @@
 # Jarvis no Windows: do ZIP ao primeiro pedido
 
-Versão 0.2.0 · Windows 10/11 x64 · 10/11/2026
+Versão 0.3.0 · Windows 10/11 x64 · 10/11/2026
+
+**Vai usar o Git Bash?** Siga [GUIA-GIT-BASH.md](GUIA-GIT-BASH.md). Você pode instalar com **bash Instalar.sh** e usar **jarvis-devin voz** diretamente nele. As instruções de PowerShell abaixo continuam disponíveis.
 
 ## 1. Baixar e extrair
 
