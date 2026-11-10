@@ -36,6 +36,7 @@ A instalação completa pode depender da conexão, do winget/Python disponível 
 ## Repetir
 
 ```powershell
+python -m pip install -r requirements.txt pywinpty==3.1.2
 python -m unittest discover -s tests -v
 python scripts/build_zip.py
 ```

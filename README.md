@@ -89,6 +89,7 @@ No notebook de trabalho, as permissões e regras da organização continuam vale
 O [workflow Windows](https://github.com/mathugolini/jarvis-devin-windows/actions/workflows/windows.yml) verifica as dependências, o PowerShell, a instalação pelo Git Bash, caminhos com espaços, pedidos literais, comandos e adaptadores de áudio em Python 3.12 e 3.13. Uma sessão de terminal também exercita o Enter da gravação através do winpty, com captura e transcrição simuladas.
 
 ```powershell
+python -m pip install pywinpty==3.1.2
 python -m unittest discover -s tests -v
 ```
 
