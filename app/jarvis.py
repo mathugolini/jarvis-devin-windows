@@ -423,6 +423,15 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    # Argument conversion is disabled only at the Bash -> Python boundary.
+    # Restore the user's environment before Devin launches Git/Bash commands.
+    conversion_present = os.environ.pop("JARVIS_MSYS_CONV_PRESENT", None)
+    if conversion_present is not None:
+        conversion_original = os.environ.pop("JARVIS_MSYS_CONV_ORIGINAL", "")
+        if conversion_present == "x":
+            os.environ["MSYS2_ARG_CONV_EXCL"] = conversion_original
+        else:
+            os.environ.pop("MSYS2_ARG_CONV_EXCL", None)
     os.umask(0o077)
     os.environ.setdefault("PYTHONUTF8", "1")
     for stream in (sys.stdout, sys.stderr):

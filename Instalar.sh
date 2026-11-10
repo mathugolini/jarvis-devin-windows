@@ -6,7 +6,6 @@ if ! command -v cygpath >/dev/null 2>&1; then
 fi
 package_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 installer="$(cygpath -w "$package_dir/scripts/install.ps1")"
-export MSYS2_ARG_CONV_EXCL='*'
 command_args=(powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File "$installer" "$@")
 if [[ -t 0 && -t 1 ]] && command -v winpty >/dev/null 2>&1; then
     winpty -- "${command_args[@]}"

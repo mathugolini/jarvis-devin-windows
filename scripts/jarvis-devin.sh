@@ -46,6 +46,8 @@ done
 
 # Git Bash/mintty needs a Windows console for msvcrt and the Devin interface.
 # The bridge is automatic; no separate PowerShell session is opened.
+export JARVIS_MSYS_CONV_PRESENT="${MSYS2_ARG_CONV_EXCL+x}"
+export JARVIS_MSYS_CONV_ORIGINAL="${MSYS2_ARG_CONV_EXCL-}"
 if [[ -t 0 && -t 1 ]]; then
     if command -v winpty >/dev/null 2>&1; then
         export MSYS2_ARG_CONV_EXCL='*'

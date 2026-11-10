@@ -75,7 +75,30 @@ class GitBashTests(unittest.TestCase):
                                JARVIS_TEST_OPEN=str(self.package / "Abrir.sh"))
         self.assertIn("teste opcao", output)
         self.assertIn("teste abrir", output)
-        self.assertIn(str(self.project), output)
+        self.assertIn(str(self.project.resolve()), output)
+
+    def test_conversion_override_does_not_leak_to_children(self):
+        audio_module = self.installed / "app/windows_audio.py"
+        original = audio_module.read_text(encoding="utf-8")
+        snapshot = self.root / "child-environment.json"
+        child = ("import json,os,pathlib; pathlib.Path(os.environ['JARVIS_TEST_SNAPSHOT']).write_text("
+                 "json.dumps({k:os.environ.get(k) for k in "
+                 "['MSYS2_ARG_CONV_EXCL','JARVIS_MSYS_CONV_PRESENT','JARVIS_MSYS_CONV_ORIGINAL']}))")
+        audio_module.write_text(original + "\nimport atexit\n"
+                                + f"atexit.register(lambda: subprocess.run([sys.executable, '-c', {child!r}], check=True))\n",
+                                encoding="utf-8")
+        try:
+            for setting in (None, "/preserve-user-setting/"):
+                self.environment.pop("MSYS2_ARG_CONV_EXCL", None)
+                if setting is not None:
+                    self.environment["MSYS2_ARG_CONV_EXCL"] = setting
+                self.run_bash('jarvis-devin pesquisar teste --simular', JARVIS_TEST_SNAPSHOT=str(snapshot))
+                values = json.loads(snapshot.read_text(encoding="utf-8"))
+                self.assertEqual(values, {"MSYS2_ARG_CONV_EXCL": setting,
+                                         "JARVIS_MSYS_CONV_PRESENT": None, "JARVIS_MSYS_CONV_ORIGINAL": None})
+        finally:
+            self.environment.pop("MSYS2_ARG_CONV_EXCL", None)
+            audio_module.write_text(original, encoding="utf-8")
 
     def test_interactive_voice_enter_through_winpty(self):
         from winpty import PtyProcess
