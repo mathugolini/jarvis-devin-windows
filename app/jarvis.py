@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import datetime as dt
 import json
 import os
@@ -427,7 +428,7 @@ if __name__ == "__main__":
     # Restore the user's environment before Devin launches Git/Bash commands.
     conversion_present = os.environ.pop("JARVIS_MSYS_CONV_PRESENT", None)
     if conversion_present is not None:
-        conversion_original = os.environ.pop("JARVIS_MSYS_CONV_ORIGINAL", "")
+        conversion_original = base64.b64decode(os.environ.pop("JARVIS_MSYS_CONV_ORIGINAL", "")).decode("utf-8")
         if conversion_present == "x":
             os.environ["MSYS2_ARG_CONV_EXCL"] = conversion_original
         else:
