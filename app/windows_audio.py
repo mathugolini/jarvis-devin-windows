@@ -152,6 +152,8 @@ def speak_text(text: str, voice: str = "") -> None:
     with tempfile.TemporaryDirectory(prefix="jarvis-resumo-") as folder:
         text_file = Path(folder) / "resumo.txt"
         text_file.write_text(text, encoding="utf-8")
-        subprocess.run([powershell_path(), "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File",
-                        str(script), "-TextPath", str(text_file), "-Voice", voice],
-                       check=True, timeout=120, capture_output=True)
+        command = [powershell_path(), "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File",
+                   str(script), "-TextPath", str(text_file)]
+        if voice:
+            command.extend(["-Voice", voice])
+        subprocess.run(command, check=True, timeout=120, capture_output=True)

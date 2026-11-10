@@ -30,7 +30,8 @@ jobs:
             if ($errors.Count) { throw ($errors | Out-String) }
           }
       - name: Install Windows audio dependencies
-        run: python -m pip install --only-binary=:all: -r requirements.txt
+        run: |
+          python -m pip install --only-binary=:all: -r requirements.txt
       - name: Check native audio imports
         run: python -c "import faster_whisper, sounddevice, huggingface_hub; print('Windows dependencies OK')"
       - name: Test CLI, installer and audio adapters

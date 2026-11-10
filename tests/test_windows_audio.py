@@ -68,8 +68,6 @@ class AudioTests(unittest.TestCase):
             def __init__(self, *args, **kwargs):
                 calls.update(kwargs)
             def transcribe(self, *args, **kwargs):
-                self_args = kwargs
-                self.assertion = self_args
                 return iter([types.SimpleNamespace(text=" Pesquise Java. ")]), None
         with tempfile.TemporaryDirectory() as folder:
             target = Path(folder) / "voice.wav"
